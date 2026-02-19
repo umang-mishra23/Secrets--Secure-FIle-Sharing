@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - Secrets</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .navbar {
+            background: #1e1e1e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 213, 255, 0.5);
+        }
+
+        .navbar h2 {
+            color: #00d5ff;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: #00d5ff;
+            text-decoration: none;
+            background: #2c2c2c;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: #00d5ff;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 213, 255, 0.5);
+        }
+
+        h1 {
+            color: #00d5ff;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: #2c2c2c;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 213, 255, 0.5);
+        }
+
+        .stat-box h3 {
+            margin: 0;
+            color: #00d5ff;
+            font-size: 1.2rem;
+        }
+
+        .stat-box p {
+            font-size: 2rem;
+            margin: 0.5rem 0 0;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #00d5ff;
+        }
+
+        th {
+            background: #2c2c2c;
+            color: #00d5ff;
+        }
+
+        tr:hover {
+            background: rgba(0, 213, 255, 0.1);
+        }
+
+        .action-btn {
+            background: #00d5ff;
+            color: #000;
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: #00b3d1;
+        }
+
+        .section-title {
+            margin-top: 2rem;
+            color: #00d5ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>Secrets Admin Panel</h2>
+        <a href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <div class="stats">
+            <div class="stat-box">
+                <h3>Total Users</h3>
+                <p>{{ total_users }}</p>
+            </div>
+            <div class="stat-box">
+                <h3>Total Files</h3>
+                <p>{{ total_files }}</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><a class="action-btn" href="{{ url_for('delete_user', user_id=user.id) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="section-title">Files</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Filename</th>
+                    <th>Uploader ID</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{ file.id }}</td>
+                    <td>{{ file.filename }}</td>
+                    <td>{{ file.uploader_id }}</td>
+                    <td><a class="action-btn" href="{{ url_for('delete_file', file_id=file.id) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

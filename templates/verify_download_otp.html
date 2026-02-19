@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download OTP Verification - Secrets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>🔐 OTP Verification for File Download</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="text" name="otp" class="input-box" placeholder="Enter OTP" required>
+        <button type="submit" class="btn">Verify & Download</button>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}" class="btn" style="background-color:#555; margin-top:10px;">Cancel</a>
+</div>
+
+</body>
+</html>

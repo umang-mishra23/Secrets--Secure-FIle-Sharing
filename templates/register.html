@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Secrets</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .center-box {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 213, 255, 0.6);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00d5ff;
+            margin-bottom: 1.5rem;
+        }
+
+        form input {
+            width: 90%;
+            padding: 0.8rem;
+            margin: 0.6rem 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: #2c2c2c;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        form button {
+            width: 95%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #00d5ff;
+            color: #000;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        form button:hover {
+            background: #00b3d1;
+        }
+
+        .flash {
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .flash.success {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+
+        .flash.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff4d4d;
+        }
+
+        .password-rules {
+            text-align: left;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: #ccc;
+            list-style: none;
+            padding: 0;
+        }
+
+        .password-rules li {
+            margin-bottom: 4px;
+        }
+
+        a {
+            color: #00d5ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <h1>🔐 Register</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <ul class="password-rules">
+                <li id="length">❌ At least 8 characters</li>
+                <li id="uppercase">❌ At least 1 uppercase letter</li>
+                <li id="lowercase">❌ At least 1 lowercase letter</li>
+                <li id="number">❌ At least 1 number</li>
+                <li id="special">❌ At least 1 special character (!@#$%^&*)</li>
+            </ul>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p style="margin-top: 1rem;">
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </p>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+
+        passwordInput.addEventListener('input', function() {
+            const value = passwordInput.value;
+
+            document.getElementById('length').innerHTML = (value.length >= 8 ? '✅' : '❌') + ' At least 8 characters';
+            document.getElementById('uppercase').innerHTML = (/[A-Z]/.test(value) ? '✅' : '❌') + ' At least 1 uppercase letter';
+            document.getElementById('lowercase').innerHTML = (/[a-z]/.test(value) ? '✅' : '❌') + ' At least 1 lowercase letter';
+            document.getElementById('number').innerHTML = (/\d/.test(value) ? '✅' : '❌') + ' At least 1 number';
+            document.getElementById('special').innerHTML = (/[!@#$%^&*]/.test(value) ? '✅' : '❌') + ' At least 1 special character';
+        });
+    </script>
+</body>
+</html>

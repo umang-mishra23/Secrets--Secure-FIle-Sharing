@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File - Secrets</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .navbar {
+            background: #1e1e1e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 213, 255, 0.5);
+        }
+
+        .navbar h2 {
+            color: #00d5ff;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: #00d5ff;
+            text-decoration: none;
+            background: #2c2c2c;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: #00d5ff;
+            color: #000;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 213, 255, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00d5ff;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="file"] {
+            margin: 1rem 0;
+            padding: 0.7rem;
+            background: #2c2c2c;
+            color: #fff;
+            border: 1px solid #00d5ff;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #00d5ff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background: #00b3d1;
+        }
+
+        .flash {
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .flash.success {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+
+        .flash.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>Secrets Dashboard</h2>
+        <a href="{{ url_for('dashboard') }}">Back</a>
+    </div>
+
+    <div class="container">
+        <h1>Upload File</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+</body>
+</html>
