@@ -1,9 +1,9 @@
 from app import db, Admin
 from werkzeug.security import generate_password_hash
 
-admin_username = 'umang509'
-admin_email = 'alokdixit193@gmail.com'
-admin_password = 'Umang&5098'
+admin_username = ''
+admin_email = ''
+admin_password = ''
 
 hashed_password = generate_password_hash(admin_password)
 
